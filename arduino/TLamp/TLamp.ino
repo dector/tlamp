@@ -1,8 +1,15 @@
-#define PIN_LED LED_BUILTIN
+#define PIN_RED 3
+#define PIN_GREEN 5
+#define PIN_BLUE 6
 
 void setup() {
-  pinMode(PIN_LED, OUTPUT);
-  digitalWrite(PIN_LED, LOW);
+  pinMode(PIN_RED, OUTPUT);
+  pinMode(PIN_GREEN, OUTPUT);
+  pinMode(PIN_BLUE, OUTPUT);
+  
+  digitalWrite(PIN_RED, LOW);
+  digitalWrite(PIN_GREEN, LOW);
+  digitalWrite(PIN_BLUE, LOW);
   
   Serial.begin(9600);
 }
@@ -42,14 +49,9 @@ boolean processCommand(String command) {
 }
 
 void setColor(int r, int g, int b) {
-  // Debug
-    if (r == 255) {
-      blink(PIN_LED, 1);
-    } else if (g == 255) {
-      blink(PIN_LED, 2);
-    } else if (b == 255) {
-      blink(PIN_LED, 3);
-    }
+  analogWrite(PIN_RED, r);
+  analogWrite(PIN_GREEN, g);
+  analogWrite(PIN_BLUE, b);
 }
 
 void blink(int pin) {
