@@ -62,7 +62,7 @@ class TLamp : Application() {
 
         val scene = Scene(root, 400.0, 200.0)
         primaryStage?.scene = scene
-        primaryStage?.title = "TLamp"
+        primaryStage?.title = "tLamp"
         primaryStage?.show()
         primaryStage?.setOnCloseRequest {
             currentPort?.closePort()

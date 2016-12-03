@@ -24,6 +24,27 @@ void setup() {
 }
 
 void loop() {
+  int start = 0;
+  int direction = +1;
+
+ if(0)
+  while (true) {
+    setColor(start, 0, 0);
+
+    start += direction;
+    if (start >= 255) {
+      start = 255;
+      direction = -1;
+      delay(100);
+    } else if (start <= 0) {
+      start = 0;
+      direction = +1;
+      delay(100);
+    } else {
+      delay(10);
+    }
+  }
+  
   if (Serial.available()) {
     String command = Serial.readStringUntil('\n');
 

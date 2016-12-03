@@ -1,4 +1,4 @@
-TLamp (Tiny Lamp) is simple Arduino-based led lamp project.
+tLamp (Tiny Lamp) is simple Arduino-based led lamp project.
 
 Whole project is distributed under [MIT License](https://tldrlegal.com/license/mit-license).
 
