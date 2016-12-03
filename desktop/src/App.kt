@@ -1,9 +1,11 @@
 import javafx.application.Application
 import javafx.collections.FXCollections
+import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
+import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
@@ -35,22 +37,30 @@ class TLamp : Application() {
             root.children.add(this)
         }
 
-        Button("Red").apply {
-            setOnMouseClicked { sendSetColor(Color.RED) }
+        val grid = GridPane().apply {
+            alignment = Pos.CENTER
+            padding = Insets(8.0, 8.0, 8.0, 8.0)
+            hgap = 8.0
+            vgap = 8.0
+            style = "-fx-background-color: #aeaeae"
+
             root.children.add(this)
         }
 
-        Button("Green").apply {
-            setOnMouseClicked { sendSetColor(Color.GREEN) }
-            root.children.add(this)
+        Color.values().forEach { color ->
+            Button("        ").apply {
+                style = "-fx-background-color: ${color.value}"
+                setOnMouseClicked { sendSetColor(color) }
+
+                val colorIndex = Color.values().indexOf(color)
+                val rowLength = 6
+                val row = colorIndex / rowLength
+                val column = colorIndex - row * rowLength
+                grid.add(this, column + 1, row + 1)
+            }
         }
 
-        Button("Blue").apply {
-            setOnMouseClicked { sendSetColor(Color.BLUE) }
-            root.children.add(this)
-        }
-
-        val scene = Scene(root, 300.0, 200.0)
+        val scene = Scene(root, 400.0, 200.0)
         primaryStage?.scene = scene
         primaryStage?.title = "TLamp"
         primaryStage?.show()
@@ -104,9 +114,23 @@ class TLamp : Application() {
 }
 
 enum class Color(val value: String) {
-    RED     ("#FF0000"),
-    GREEN   ("#00FF00"),
-    BLUE    ("#0000FF")
+    RED         ("#FF0000"),
+    CYAN        ("#00FFFF"),
+    BLUE        ("#0000FF"),
+    DARK_BLUE   ("#0000A0"),
+    PURPLE      ("#800080"),
+    YELLOW      ("#FFFF00"),
+    LIME        ("#00FF00"),
+    FUCHSIA     ("#FF00FF"),
+    OLIVE       ("#808000"),
+    GREEN       ("#008000"),
+    MAROON      ("#800000"),
+    BROWN       ("#A52A2A"),
+    ORANGE      ("#FFA500"),
+    BLACK       ("#000000"),
+    GREY        ("#808080"),
+    SILVER      ("#C0C0C0"),
+    WHITE       ("#FFFFFF")
 }
 
 fun main(vararg args: String) {
