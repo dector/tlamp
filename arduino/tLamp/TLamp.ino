@@ -1,6 +1,6 @@
 #define PIN_RED 3
-#define PIN_GREEN 5
-#define PIN_BLUE 6
+#define PIN_GREEN 4
+#define PIN_BLUE 5
 
 #define PIN_STATUS LED_BUILTIN
 
@@ -10,7 +10,7 @@
 #define EMPTY_COMMAND_FAIL ""
 
 enum LightMode {
-  NONE, STATIC,CRUDE
+  NONE, STATIC, CRUDE, CANDLE
 };
 
 const int crude_T = 5000;
@@ -67,7 +67,8 @@ void processCrudeLightMode() {
   int r = countColor(m, 0*crude_Ts);
   int g = countColor(m, 2*crude_Ts);
   int b = countColor(m, 4*crude_Ts);
-  setColor(1.5*r, g*0.6, b*0.6); // Some calibrations for LED color brightness
+  //setColor(1.5*r, g*0.6, b*0.6); // Some calibrations for LED color brightness
+  setColor(r, g, b);
 }
 
 String processCommand(String command) {
@@ -105,8 +106,8 @@ void setLightMode(LightMode mode) {
 
 void setColor(int r, int g, int b) {
   analogWrite(PIN_RED, r);
-  analogWrite(PIN_GREEN, g);
-  analogWrite(PIN_BLUE, b);
+  analogWrite(PIN_GREEN, g / 2);// * 5 / 3);
+  analogWrite(PIN_BLUE, b / 2);
 }
 
 void blink(int pin) {
