@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Common -->
+    <string name="app.name">Tiny Lamp</string>
+
+    <!-- Empty state -->
+    <string name="empty.content.title">Oops!</string>
+    <string name="empty.content.hint">There is nothing here (yet)</string>
+
+    <!--Main screen -->
+    <string name="main.navigation.gradient">Gradient</string>
+    <string name="main.navigation.light">Light</string>
+    <string name="main.navigation.candle">Candle</string>
+
+</resources>
