@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
     }
 
-    fun initBottomNavigation() {
+    private fun initBottomNavigation() {
         bottom_navigation.setOnNavigationItemSelectedListener {
             content_pager.currentItem = when (it.itemId) {
                 R.id.main_gradient -> ContentPagerAdapter.ITEM_GRADIENT
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.selectCentralItem()
     }
 
-    fun initContent() {
+    private fun initContent() {
         content_pager.adapter = ContentPagerAdapter(supportFragmentManager)
         content_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 

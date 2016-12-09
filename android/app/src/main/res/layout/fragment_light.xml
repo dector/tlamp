@@ -1,11 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/light_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/view_empty_content"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/light_picker_container_height"
+        android:background="@color/light_color_picker_container_background"
+        android:paddingLeft="@dimen/light_picker_container_padding"
+        android:paddingRight="@dimen/light_picker_container_padding">
+
+    <uz.shift.colorpicker.LineColorPicker
+            android:id="@+id/light_color_picker"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/light_picker_height"
+            android:layout_gravity="center"
+            app:colors="@array/tlamp_colors"
+            app:orientation="horizontal"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/light_picker_buttons_marginTop"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/light_picker_buttons_paddingLeft"
+        android:paddingRight="@dimen/light_picker_buttons_paddingRight">
+
+        <!-- Spacing -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/light_revert_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/light.button.revert"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+        <Button
+            android:id="@+id/light_save_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/light_picker_button_save_width"
+            android:layout_height="wrap_content"
+            android:text="@string/light.button.save"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
+
+    <!-- Add "Preview" menu option -->
 
 </LinearLayout>

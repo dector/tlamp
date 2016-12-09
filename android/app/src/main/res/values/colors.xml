@@ -25,4 +25,17 @@
     <color name="main_navigation_text_normal">@color/white</color>
     <color name="main_navigation_text_checked">@color/red_500</color>
 
+    <!-- Light screen -->
+    <color name="light_color_picker_container_background">@color/blue_grey_200</color>
+
+    <!-- Device colors -->
+    <color name="tlamp_red">#FF0000</color>
+    <color name="tlamp_green">#00FF00</color>
+    <color name="tlamp_blue">#0000FF</color>
+    <array name="tlamp_colors">
+        <item>@color/tlamp_red</item>
+        <item>@color/tlamp_green</item>
+        <item>@color/tlamp_blue</item>
+    </array>
+
 </resources>

@@ -3,6 +3,7 @@ package io.github.dector.tlamp.content
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.github.dector.tlamp.candle.CandleFragment
+import io.github.dector.tlamp.connection.MockLampDataLoader
 import io.github.dector.tlamp.gradient.GradientFragment
 import io.github.dector.tlamp.light.LightFragment
 
@@ -20,7 +21,7 @@ class ContentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int) = when (position) {
         ITEM_GRADIENT -> GradientFragment()
-        ITEM_LIGHT -> LightFragment()
+        ITEM_LIGHT -> LightFragment(MockLampDataLoader())
         ITEM_CANDLE -> CandleFragment()
         else -> null
     }
