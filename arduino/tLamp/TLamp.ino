@@ -10,12 +10,21 @@
 #define EMPTY_COMMAND_FAIL ""
 
 enum LightMode {
-  NONE, STATIC, CRUDE, CANDLE
+  NONE, STATIC, CRUDE, TRIANGLE, CANDLE
 };
 
 const int crude_T = 5000;
 const int crude_I = 255/2;
 const float crude_Ts = 1.0/6 * crude_T;
+
+int currentR;
+int currentG;
+int currentB;
+
+byte triangleMode = 0;
+byte triangleStep = 5;
+unsigned int triangleDelay = 50;
+unsigned long triangleStepTime;
 
 unsigned long lightModeStart = 0;
 LightMode lightMode = NONE;
@@ -59,6 +68,9 @@ void processLightMode() {
     case LightMode::CRUDE:
       processCrudeLightMode();
       break;
+    case LightMode::TRIANGLE:
+      processTriangleLightMode();
+      break;
   }
 }
 
@@ -69,6 +81,48 @@ void processCrudeLightMode() {
   int b = countColor(m, 4*crude_Ts);
   //setColor(1.5*r, g*0.6, b*0.6); // Some calibrations for LED color brightness
   setColor(r, g, b);
+}
+
+void processTriangleLightMode() {
+  unsigned long ms = millis();
+  if (ms < triangleStepTime) {
+    return;
+  }
+
+  int r = 0;
+  int g = 0;
+  int b = 0;
+  
+  switch (triangleMode) {
+    case 0: // From RED to GREEN
+      r = currentR - triangleStep;
+      g = currentG + triangleStep;
+
+      if (r <= 0) r = 0;
+      if (g >= 255) g = 255;
+      if (g == 255) triangleMode = 1;
+      break;
+    case 1:
+      g = currentG - triangleStep;
+      b = currentB + triangleStep;
+
+      if (g <= 0) g = 0;
+      if (b >= 255) b = 255;
+      if (b == 255) triangleMode = 2;
+      break;
+    case 2:
+      r = currentR + triangleStep;
+      b = currentB - triangleStep;
+
+      if (b <= 0) b = 0;
+      if (r >= 255) r = 255;
+      if (r == 255) triangleMode = 0;
+      break;
+  }
+
+  setColor(r, g, b);
+  
+  triangleStepTime = ms + triangleDelay;
 }
 
 String processCommand(String command) {
@@ -93,6 +147,11 @@ String processCommand(String command) {
     lightModeStart = millis();
     setLightMode(CRUDE);
     return EMPTY_COMMAND_SUCCESS;
+  } else if (command.equals("TRIANGLE_CROSS")) {
+    lightModeStart = millis();
+    setLightMode(TRIANGLE);
+    triangleMode = 0;
+    return EMPTY_COMMAND_SUCCESS;
   } else if (command.startsWith("VERSION")) {
     return FIRMWARE_VERSION;
   }
@@ -105,6 +164,10 @@ void setLightMode(LightMode mode) {
 }
 
 void setColor(int r, int g, int b) {
+  currentR = r;
+  currentG = g;
+  currentB = b;
+  
   analogWrite(PIN_RED, r);
   analogWrite(PIN_GREEN, g / 2);// * 5 / 3);
   analogWrite(PIN_BLUE, b / 2);
