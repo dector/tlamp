@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/light_content"
     android:layout_width="match_parent"
@@ -16,13 +15,12 @@
         android:paddingLeft="@dimen/light_picker_container_padding"
         android:paddingRight="@dimen/light_picker_container_padding">
 
-    <uz.shift.colorpicker.LineColorPicker
+        <io.github.dector.tlamp.color_wheel.ColorWheelView
             android:id="@+id/light_color_picker"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/light_picker_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:colors="@array/tlamp_colors"
-            app:orientation="horizontal"/>
+            android:padding="@dimen/light_picker_padding"/>
 
     </FrameLayout>
 

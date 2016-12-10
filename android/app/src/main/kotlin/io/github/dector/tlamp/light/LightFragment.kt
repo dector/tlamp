@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.dector.tlamp.R
+import io.github.dector.tlamp.color_wheel.ColorWheelView
 import io.github.dector.tlamp.connection.ILampDataLoader
 import kotlinx.android.synthetic.main.fragment_light.*
 
@@ -17,11 +18,14 @@ class LightFragment(val dataLoader: ILampDataLoader) : Fragment() {
             = inflater?.inflate(R.layout.fragment_light, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        light_color_picker.setOnColorChangedListener {
-            selectedColor = it
+        light_color_picker.colorSelectedListener = object : ColorWheelView.OnColorSelectedListener {
 
-            if (! areButtonsDisplayed()) {
-                displayButtons(true)
+            override fun onColorSelected(color: Int) {
+                selectedColor = color
+
+                if (! areButtonsDisplayed()) {
+                    displayButtons(true)
+                }
             }
         }
 
