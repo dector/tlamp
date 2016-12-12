@@ -61,6 +61,8 @@ class ColorWheelView(context: Context, attrs: AttributeSet? = null) : View(conte
 
             return true
         }
+
+        override fun onDown(e: MotionEvent?) = true
     }
     private val gestureDetector = GestureDetector(context, gestureListener)
 
