@@ -38,7 +38,7 @@ class ColorWheelView(context: Context, attrs: AttributeSet? = null) : View(conte
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
-        override fun onDown(e: MotionEvent): Boolean {
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
             val x = e.x - bounds.centerX()
             val y = height - e.y - 1 - bounds.centerY()
 
