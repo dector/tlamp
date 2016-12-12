@@ -12,11 +12,10 @@
     <!-- Light screen -->
     <dimen name="light_picker_container_height">270dp</dimen>
     <dimen name="light_picker_container_padding">16dp</dimen>
+    <dimen name="light_preview_marginTop">16dp</dimen>
+    <dimen name="light_preview_marginLeft">8dp</dimen>
     <dimen name="light_picker_height">36dp</dimen>
     <dimen name="light_picker_padding">16dp</dimen>
-    <dimen name="light_picker_marginLeft">16dp</dimen>
-    <dimen name="light_picker_marginRight">16dp</dimen>
-    <dimen name="light_picker_buttons_marginTop">36dp</dimen>
     <dimen name="light_picker_buttons_paddingLeft">16dp</dimen>
     <dimen name="light_picker_buttons_paddingRight">16dp</dimen>
     <dimen name="light_picker_button_save_width">144dp</dimen>

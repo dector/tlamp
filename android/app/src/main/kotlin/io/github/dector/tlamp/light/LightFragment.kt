@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_light.*
 
 class LightFragment(val dataLoader: ILampDataLoader) : Fragment() {
 
+    private var lampColor = 0
     private var selectedColor = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -26,25 +27,39 @@ class LightFragment(val dataLoader: ILampDataLoader) : Fragment() {
                 if (! areButtonsDisplayed()) {
                     displayButtons(true)
                 }
+
+                if (light_preview_checkbox.isChecked) {
+                    uploadColorToLamp(color, permanent = false)
+                }
             }
         }
 
         light_revert_button.setOnClickListener {
-            reloadCurrentColor()
+            restoreLampColor()
         }
 
         light_save_button.setOnClickListener {
             val newColor = selectedColor
 
-            dataLoader.setStaticColor(newColor,
-                    onSuccess = { onColorSaved(newColor) })
+            uploadColorToLamp(newColor)
+        }
+
+        light_preview_checkbox.setOnCheckedChangeListener { button, checked ->
+            if (checked)
+                uploadColorToLamp(selectedColor, permanent = false)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         reloadCurrentColor()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        restoreLampColor()
     }
 
     private fun reloadCurrentColor() {
@@ -53,7 +68,17 @@ class LightFragment(val dataLoader: ILampDataLoader) : Fragment() {
         displayButtons(false)
     }
 
+    private fun restoreLampColor() {
+        uploadColorToLamp(lampColor)
+    }
+
+    private fun uploadColorToLamp(color: Int, permanent: Boolean = true) {
+        dataLoader.setStaticColor(color,
+                onSuccess = { if (permanent) onColorSaved(color) })
+    }
+
     private fun onColorLoaded(color: Int) {
+        lampColor = color
         selectedColor = color
         light_color_picker.setSelectedColor(selectedColor)
     }

@@ -14,11 +14,6 @@ class ColorWheelView(context: Context, attrs: AttributeSet? = null) : View(conte
         fun onColorSelected(color: Int)
     }
 
-    init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-            setLayerType(LAYER_TYPE_SOFTWARE, null)
-    }
-
     var colorSelectedListener: OnColorSelectedListener? = null
 
     private val colors: Array<Int> = arrayOf(
@@ -68,6 +63,15 @@ class ColorWheelView(context: Context, attrs: AttributeSet? = null) : View(conte
         }
     }
     private val gestureDetector = GestureDetector(context, gestureListener)
+
+    init {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            setLayerType(LAYER_TYPE_SOFTWARE, null)
+
+        if (isInEditMode) {
+            selectedColor = 0xfd5308
+        }
+    }
 
     fun setSelectedColor(color: Int) {
         selectedColor = color

@@ -13,6 +13,7 @@
     <string name="main.navigation.candle">Candle</string>
 
     <!-- Light screen -->
+    <string name="light.preview">Preview on lamp</string>
     <string name="light.button.revert">Revert</string>
     <string name="light.button.save">Save</string>
 

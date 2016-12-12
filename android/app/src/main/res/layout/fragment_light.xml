@@ -24,10 +24,19 @@
 
     </FrameLayout>
 
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/light_preview_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/light_preview_marginTop"
+        android:layout_marginLeft="@dimen/light_preview_marginLeft"
+        android:checked="true"
+        android:text="@string/light.preview"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/light_picker_buttons_marginTop"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/light_picker_buttons_paddingLeft"
         android:paddingRight="@dimen/light_picker_buttons_paddingRight">
