@@ -2,6 +2,9 @@
 
     <!-- Common -->
     <string name="app.name">Tiny Lamp</string>
+    <string name="format.minutes.seconds">%1$dm %2$ds</string>
+    <string name="format.minutes">%dm</string>
+    <string name="format.seconds">%ds</string>
 
     <!-- Empty state -->
     <string name="empty.content.title">Oops!</string>
@@ -16,5 +19,9 @@
     <string name="light.preview">Preview on lamp</string>
     <string name="light.button.revert">Revert</string>
     <string name="light.button.save">Save</string>
+
+    <!-- Gradient -->
+    <string name="gradient.activate">Activate</string>
+    <string name="gradient.period.title.format">Period (%s):</string>
 
 </resources>

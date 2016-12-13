@@ -21,7 +21,7 @@ class ContentPagerAdapter(fm: FragmentManager,
     private val ITEMS_COUNT = 3
 
     override fun getItem(position: Int) = when (position) {
-        ITEM_GRADIENT -> GradientFragment()
+        ITEM_GRADIENT -> GradientFragment(lampDataLoader)
         ITEM_LIGHT -> LightFragment(lampDataLoader)
         ITEM_CANDLE -> CandleFragment()
         else -> null
