@@ -1,6 +1,14 @@
+#include <SoftwareSerial.h>
+
 #define PIN_RED 3
 #define PIN_GREEN 4
 #define PIN_BLUE 5
+
+#define PIN_BT_RX 10
+#define PIN_BT_TX 11
+
+#define BAUDRATE_SERIAL 9600
+#define BAUDRATE_BT 9600
 
 #define PIN_STATUS LED_BUILTIN
 
@@ -29,6 +37,8 @@ unsigned long triangleStepTime;
 unsigned long lightModeStart = 0;
 LightMode lightMode = NONE;
 
+SoftwareSerial BT(PIN_BT_RX, PIN_BT_TX);
+
 void setup() {
   pinMode(PIN_RED, OUTPUT);
   pinMode(PIN_GREEN, OUTPUT);
@@ -40,27 +50,42 @@ void setup() {
   digitalWrite(PIN_BLUE, LOW);
   digitalWrite(PIN_STATUS, LOW);
   
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE_SERIAL);
+
+  BT.begin(BAUDRATE_BT);
 }
 
 void loop() {
   if (Serial.available()) {
     String command = Serial.readStringUntil('\n');
+    handleCommand(command, false);
+  }
 
-    String output = processCommand(command);
-    if (output.length() > 0) {
-      Serial.println("+" + command);
-      if (output != EMPTY_COMMAND_SUCCESS)
-        Serial.println(output);
-      blink(PIN_STATUS, 2);
-    } else {
-      Serial.println("-" + command);
-      Serial.println("UNKNOWN");
-      blink(PIN_STATUS, 1);
-    }
+  if (BT.available()) {
+    String command = BT.readStringUntil('\n');
+    handleCommand(command, true);
   }
 
   processLightMode();
+}
+
+void handleCommand(String command, boolean fromBT) {
+  String output = processCommand(command);
+    if (output.length() > 0) {
+      if (fromBT) BT.println("+" + command);
+      else Serial.println("+" + command);
+      if (output != EMPTY_COMMAND_SUCCESS) {
+        if (fromBT) BT.println(output);
+        else Serial.println(output);
+      }
+      blink(PIN_STATUS, 2);
+    } else {
+      if (fromBT) BT.println("-" + command);
+      else Serial.println("-" + command);
+      if (fromBT) BT.println("UNKNOWN");
+      else Serial.println("UNKNOWN");
+      blink(PIN_STATUS, 1);
+    }
 }
 
 void processLightMode() {
