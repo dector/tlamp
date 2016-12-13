@@ -1,8 +1,11 @@
 package io.github.dector.tlamp.connection
 
+import io.github.dector.tlamp.BTManager
 import java.util.*
 
 interface ILampDataLoader {
+
+    fun isConnected(): Boolean
 
     fun getCurrentColor(onSuccess: (Int) -> Unit,
                         onFail: () -> Unit = {})
@@ -35,6 +38,12 @@ class MockLampDataLoader : ILampDataLoader {
     private var state = State.COLOR
     private var color = 0xFF00FF00.toInt()
 
+    val connected = false
+
+    override fun isConnected(): Boolean {
+        return connected
+    }
+
     override fun getCurrentColor(onSuccess: (Int) -> Unit, onFail: () -> Unit) {
         onSuccess(color)
     }
@@ -42,6 +51,8 @@ class MockLampDataLoader : ILampDataLoader {
     override fun setStaticColor(color: Int, onSuccess: () -> Unit, onFail: () -> Unit) {
         this.color = color
         this.state = State.COLOR
+
+        BTManager.setStaticColor(color, onSuccess, onFail)
 
         stateListeners.forEach { it.onStateChanged(state) }
         colorListeners.forEach { it.onColorChanged(color) }

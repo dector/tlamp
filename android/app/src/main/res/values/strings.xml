@@ -6,11 +6,23 @@
     <string name="format.minutes">%dm</string>
     <string name="format.seconds">%ds</string>
 
+    <!-- Bluetooth -->
+    <string name="bluetooth.lamp.connected">Your lamp successfully connected</string>
+    <string name="bluetooth.lamp.not.connected">Please, pair lamp first</string>
+    <string name="bluetooth.not.found">There is no bluetooth on this device</string>
+    <string name="bluetooth.should.be.enabled">Please, turn on bluetooth</string>
+    <string name="bluetooth.turn.on">Turn On</string>
+    <string name="bluetooth.select.device">Select BT device</string>
+
     <!-- Empty state -->
     <string name="empty.content.title">Oops!</string>
     <string name="empty.content.hint">There is nothing here (yet)</string>
 
-    <!--Main screen -->
+    <!-- Main menu -->
+    <string name="main.menu.connect.to.lamp">Connect to lamp</string>
+    <string name="main.menu.disconnect.from.lamp">Disconnect from lamp</string>
+
+    <!-- Main screen -->
     <string name="main.navigation.gradient">Gradient</string>
     <string name="main.navigation.light">Light</string>
     <string name="main.navigation.candle">Candle</string>

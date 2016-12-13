@@ -4,21 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/main_gradient"
-        android:icon="@drawable/ic_gradient"
-        android:title="@string/main.navigation.gradient"
+        android:id="@+id/main_bluetooth"
+        android:icon="@drawable/ic_bluetooth"
+        android:title="@string/main.menu.connect.to.lamp"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/main_light"
-        android:icon="@drawable/ic_bulb"
-        android:title="@string/main.navigation.light"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/main_candle"
-        android:icon="@drawable/ic_fire"
-        android:title="@string/main.navigation.candle"
+        android:id="@+id/main_disconnect"
+        android:icon="@drawable/ic_disconnect_bluetooth"
+        android:title="@string/main.menu.disconnect.from.lamp"
         app:showAsAction="ifRoom"/>
 
 </menu>

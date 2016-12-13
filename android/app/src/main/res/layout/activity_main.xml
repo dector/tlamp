@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/main_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="io.github.dector.tlamp.MainActivity">
@@ -27,6 +27,6 @@
         app:itemBackground="@color/main_navigation_background"
         app:itemIconTint="@color/main_navigation_icon"
         app:itemTextColor="@color/main_navigation_text"
-        app:menu="@menu/menu_main"/>
+        app:menu="@menu/menu_main_navigation"/>
 
 </RelativeLayout>
