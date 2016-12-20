@@ -36,4 +36,8 @@
     <string name="gradient.activate">Activate</string>
     <string name="gradient.period.title.format">Period (%s):</string>
 
+    <!-- No Bluetooth -->
+    <string name="no.bluetooth.hint">Unfortunately Bluetooth hasn\'t been found on this device :(</string>
+    <string name="no.bluetooth.back.button">Ah… That\'s sad</string>
+
 </resources>

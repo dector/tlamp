@@ -20,4 +20,9 @@
     <dimen name="light_picker_buttons_paddingRight">16dp</dimen>
     <dimen name="light_picker_button_save_width">144dp</dimen>
 
+    <!-- No Bluetooth -->
+    <dimen name="no_bluetooth_image_size">128dp</dimen>
+    <dimen name="no_bluetooth_hint_paddingHorizontal">18dp</dimen>
+    <dimen name="no_bluetooth_button_marginTop">48dp</dimen>
+
 </resources>

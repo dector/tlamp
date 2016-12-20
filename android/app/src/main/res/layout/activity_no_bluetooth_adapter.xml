@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/no_bluetooth_image_size"
+        android:layout_height="@dimen/no_bluetooth_image_size"
+        android:src="@drawable/ic_disconnect_bluetooth"
+        android:tint="@color/no_bluetooth_image_tint"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/no_bluetooth_hint_paddingHorizontal"
+        android:paddingEnd="@dimen/no_bluetooth_hint_paddingHorizontal"
+        android:text="@string/no.bluetooth.hint"
+        android:textAlignment="center"
+        android:textColor="@color/no_bluetooth_hint_textColor"/>
+
+    <Button
+        android:id="@+id/no_bluetooth_confirm_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/no_bluetooth_button_marginTop"
+        android:text="@string/no.bluetooth.back.button"/>
+
+</LinearLayout>

@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="app.akexorcist.bluetoothspp.DeviceList" />
+        <activity android:name=".connection.ConnectToLampActivity"/>
+        <activity android:name=".connection.RequestBluetoothPermissionActivity"/>
+        <activity android:name=".connection.NoBluetoothAdapterActivity"/>
+        <activity android:name=".connection.BluetoothDevicesListActivity"/>
 
     </application>
 

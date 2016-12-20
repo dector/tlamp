@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
 import io.github.dector.tlamp.color_wheel.solid
+import io.github.dector.tlamp.common.isNull
 import io.github.dector.tlamp.common.selectCentralItem
 import io.github.dector.tlamp.common.selectItemAtPosition
+import io.github.dector.tlamp.connection.ConnectToLampActivity
 import io.github.dector.tlamp.connection.ILampDataLoader
 import io.github.dector.tlamp.connection.MockLampDataLoader
 import io.github.dector.tlamp.content.ContentPagerAdapter
@@ -51,19 +53,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
-        R.id.main_bluetooth -> { connectToLamp(); true }
+        R.id.main_bluetooth -> { startActivity(ConnectToLampActivity.newIntent(this)); /*connectToLamp();*/ true }
         R.id.main_disconnect -> { disconnectFromLamp(); true }
         else -> false
     }
 
-    private fun connectToLamp() {
-        val connected = BTManager.connect()
+    /*private fun connectToLamp() {
+        val connected = BTManager.connectAsync()
 
         val notificationText = if (connected) R.string.bluetooth_lamp_connected else R.string.bluetooth_lamp_not_connected
         Snackbar.make(main_root, notificationText, Snackbar.LENGTH_LONG).show()
 
         invalidateOptionsMenu()
-    }
+    }*/
 
     private fun disconnectFromLamp() {
         BTManager.disconnect()
@@ -117,27 +119,36 @@ object BTManager : ILampDataLoader {
 
     private var socket: BluetoothSocket? = null
 
-    fun connect(): Boolean {
-        val adapter = BluetoothAdapter.getDefaultAdapter()
-        val device = adapter.bondedDevices.filter { it.name == "tLamp" }.firstOrNull()
-                ?: return false
+    fun connectAsync(address: String, onFinished: (Boolean) -> Unit = {}) {
+        Thread({
+            val adapter = BluetoothAdapter.getDefaultAdapter()
+            val deviceOrNull = adapter.bondedDevices.filter { it.address == address }.firstOrNull()
+            if (deviceOrNull.isNull()) {
+                onFinished(false)
+                return@Thread
+            }
 
-        val uuid = device.uuids?.firstOrNull()?.uuid ?: UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-        val socket = device.createInsecureRfcommSocketToServiceRecord(uuid)
+            val device = deviceOrNull!!
 
-        try {
-            socket.connect()
-        } catch (e: Exception) {
+            val uuid = device.uuids?.firstOrNull()?.uuid ?: UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+            val socket = device.createInsecureRfcommSocketToServiceRecord(uuid)
+
             try {
-                socket.close()
-            } catch (e2: Exception) {}
+                socket.connect()
+            } catch (e: Exception) {
+                try {
+                    socket.close()
+                } catch (e2: Exception) {
+                }
 
-            Log.e("Connection", "Socket not connected", e)
-            return false
-        }
-        this.socket = socket
+                Log.e("Connection", "Socket not connected", e)
+                onFinished(false)
+                return@Thread
+            }
+            this.socket = socket
 
-        return true
+            onFinished(true)
+        }).start()
     }
 
     fun disconnect() {
