@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -120,11 +120,13 @@ object BTManager : ILampDataLoader {
     private var socket: BluetoothSocket? = null
 
     fun connectAsync(address: String, onFinished: (Boolean) -> Unit = {}) {
+        val uiHandler = Handler()
+
         Thread({
             val adapter = BluetoothAdapter.getDefaultAdapter()
             val deviceOrNull = adapter.bondedDevices.filter { it.address == address }.firstOrNull()
             if (deviceOrNull.isNull()) {
-                onFinished(false)
+                uiHandler.post { onFinished(false) }
                 return@Thread
             }
 
@@ -142,12 +144,12 @@ object BTManager : ILampDataLoader {
                 }
 
                 Log.e("Connection", "Socket not connected", e)
-                onFinished(false)
+                uiHandler.post { onFinished(false) }
                 return@Thread
             }
             this.socket = socket
 
-            onFinished(true)
+            uiHandler.post { onFinished(true) }
         }).start()
     }
 
